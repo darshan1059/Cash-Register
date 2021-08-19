@@ -12,30 +12,31 @@ nextButton.addEventListener("click", validateAndDisplayCashGivenHandler);
 
 function validateAndDisplayCashGivenHandler() {
     hideMessage();
-    if(billAmount.value > 0){
+    if (billAmount.value > 0) {
         nextButton.style.display = "none";
         cashGivenDisplay.style.display = "flex";
-    }
-    else{
+    } else {
         showMessage("Enter Valid Bill Amount ");
     }
-   
+
 }
 
 checkButton.addEventListener("click", validateBillAndCashAmountHandler);
 
 function validateBillAndCashAmountHandler() {
     hideMessage();
-    if (billAmount.value > 0 && cashGiven.value > 0) {
-        if (cashGiven.value >= billAmount.value) {
-            var amountToBeReturned = cashGiven.value - billAmount.value;
+    var cashAmountValue = Number(cashGiven.value);
+    var billAmountValue = Number(billAmount.value);
+    if (cashAmountValue > 0) {
+        if (cashAmountValue >= billAmountValue) {
+            var amountToBeReturned = cashAmountValue - billAmountValue;
             calculateChange(amountToBeReturned);
         } else {
             showMessage("The cash provided should be atleast equal to bill amount");
         }
 
     } else {
-        showMessage("Invalid Bill Amount");
+        showMessage("Invalid Cash Amount");
     }
 }
 
@@ -52,6 +53,7 @@ function calculateChange(amountToBeReturned) {
 function showMessage(msg) {
     errorMessage.style.display = "block";
     errorMessage.innerText = msg;
+    changeTableDisplay.style.display = "none";
 }
 
 function hideMessage(msg) {
